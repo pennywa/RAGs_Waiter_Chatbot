@@ -1,4 +1,5 @@
 import gradio as gr
+from embedding_vis import generate_embedding_viz
 
 from ai_waiter_chatbot import (
     MENU_FILE,
@@ -8,10 +9,8 @@ from ai_waiter_chatbot import (
     load_menu_items,
 )
 
-
 items = load_menu_items(MENU_FILE)
 retriever = TinyRetriever(items)
-
 
 def ask_waiter(user_query: str) -> tuple[str, str]:
     query = (user_query or "").strip()
@@ -21,7 +20,6 @@ def ask_waiter(user_query: str) -> tuple[str, str]:
     no_rag = answer_without_rag(query)
     with_rag = answer_with_rag(query, retriever)
     return no_rag, with_rag
-
 
 demo = gr.Interface(
     fn=ask_waiter,
