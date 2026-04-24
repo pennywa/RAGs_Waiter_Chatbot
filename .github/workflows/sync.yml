@@ -15,4 +15,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.cf_waiter_menu }}
-        run: git push --force https://pennywa:$HF_TOKEN@huggingface.co/spaces/pennywa/AI_Waiter_Chatbot main
+        run: git push --force https://:$HF_TOKEN@huggingface.co/spaces/pennywa/AI_Waiter_Chatbot main
