@@ -1,18 +1,20 @@
-name: Sync to Hugging Face
+name: Sync to Hugging Face Hub
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
 jobs:
-  sync-to-hub:
+  sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           lfs: true
-      - name: Push to hub
-        env:
-          HF_TOKEN: ${{ secrets.cf_waiter_menu }}
-        run: git push --force https://pennywa:${{ secrets.cf_waiter_menu }}@huggingface.co/spaces/pennywa/AI_Waiter_Chatbot main
+      - name: Sync to Hub
+        uses: huggingface/hub-sync@v1.0
+        with:
+          github_repo_id: pennywa/RAGs_Waiter_Chatbot
+          huggingface_repo_id: pennywa/AI_Waiter_Chatbot
+          hf_token: ${{ secrets.cf_waiter_menu }}
